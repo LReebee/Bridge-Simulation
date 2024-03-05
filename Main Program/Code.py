@@ -1,4 +1,4 @@
-print("Lee is amazing frfr") #If u remove this or change it then u gay fr
+print("Lee is amazing frfr(He cant even solo fatalisᗜ˰ᗜ)") #If u remove this or change it then u gay fr
 
 #1st Step: Done
 
