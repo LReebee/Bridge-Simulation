@@ -71,7 +71,9 @@ while running:
                             "y": 0,
                             "velocity": 1
                         }
-
+                        objects.append(new_object)
+                        simulation_log.append(f"Dropped object: size {new_object['size']}, weight {new_object['mass']}")
+                        last_click_time = current_time
 
     draw_structure(structure_width)
     draw_objects(objects)
