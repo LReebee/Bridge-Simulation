@@ -1,4 +1,4 @@
-print("Lee is amazing frfr(He cant even solo fatalisᗜ˰ᗜ)") #If u remove this or change it then u gay fr
+#I have to remove ur print function because code doesn't work if u put it.
 
 #1st Step: Done
 
@@ -32,7 +32,7 @@ simulation_log = []
 
 font = pygame.font.Font(None, 20)
 
-#2nd Step: Not done, botton issues. can't click, need fxing.
+#2nd Step: Not done, botton issues. can't click, need fxing. Kinda fixed it but it needs to drop.
 
 def draw_structure(structure_width):
     pygame.draw.rect(screen, structure_color, (structure_position[0] - structure_width // 2, structure_position[1], structure_width, structure_height))
@@ -40,6 +40,15 @@ def draw_structure(structure_width):
 def draw_objects(objects):
     for obj in objects:
         screen.blit(obj["image"], (obj["x"], obj["y"]))
+
+def display_message(message, color): #I'll help Lee with the UI and let Kato finish the next part of this function. - P
+    text = font.render(message, True, color)
+    screen.blit(text, (10, 10))
+
+def save_log(): 
+    with open(LOG_FILE, "w") as file:
+        for entry in simulation_log:
+            file.write(entry + "\n")
 
 running = True
 objects = []
@@ -79,5 +88,7 @@ while running:
     draw_objects(objects)
     pygame.time.Clock().tick(FPS)
     pygame.display.flip()
+    display_message("Press 'r' to reset, 's' to save log, 1-3 to drop objects", (255, 255, 255))
 
+    
 pygame.quit()
