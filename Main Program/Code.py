@@ -32,7 +32,7 @@ simulation_log = []
 
 font = pygame.font.Font(None, 20)
 
-#2nd Step: Not done, botton issues. can't click, need fxing. Kinda fixed it but it needs to drop.
+#2nd Step: Not done, botton issues. can't click, need fxing. Kinda fixed it but it needs to drop. It drops now but the bridge doesn't work.
 
 def draw_structure(structure_width):
     pygame.draw.rect(screen, structure_color, (structure_position[0] - structure_width // 2, structure_position[1], structure_width, structure_height))
@@ -49,6 +49,10 @@ def save_log():
     with open(LOG_FILE, "w") as file:
         for entry in simulation_log:
             file.write(entry + "\n")
+
+def check_collision(obj, structure_width):
+    return structure_position[0] - structure_width // 2 < obj["x"] < structure_position[0] + structure_width // 2 and \
+           structure_position[1] < obj["y"] + obj["size"]
 
 running = True
 objects = []
@@ -83,6 +87,15 @@ while running:
                         objects.append(new_object)
                         simulation_log.append(f"Dropped object: size {new_object['size']}, weight {new_object['mass']}")
                         last_click_time = current_time
+
+    for obj in objects:
+        obj["y"] += obj["velocity"]
+        obj["velocity"] += 1
+
+        if check_collision(obj, structure_width):
+            obj["y"] = structure_position[1] - obj["size"]
+            obj["velocity"] = 0
+
 
     draw_structure(structure_width)
     draw_objects(objects)
