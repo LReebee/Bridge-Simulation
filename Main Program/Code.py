@@ -79,21 +79,21 @@ structure_width = 200
 last_click_time = 0
 objects_count = {} # In the funtion, this'll increase to the weight that u dropped
 total_objects_dropped = 0 # In the function, this'll increase to one per object
+
 while running:
     screen.fill(BACKGROUND_COLOR)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN: # This is used for the buttons
             if event.key == pygame.K_r:
                 objects = []
                 simulation_log.append("Simulation reset.")
-                objects_count = {}
+                objects_count.clear()
                 total_objects_dropped = 0
-
-            elif event.key in [pygame.K_1, pygame.K_2, pygame.K_3]: # This is used for the buttons
-                size_index = int(event.key - pygame.K_1)
+            elif event.key in [pygame.K_1, pygame.K_2, pygame.K_3]:
+                size_index = event.key - pygame.K_1
                 if 0 <= size_index < len(object_sizes):
                     current_time = pygame.time.get_ticks()
                     if current_time - last_click_time > CLICK_DELAY:
@@ -101,13 +101,15 @@ while running:
                             "size": object_sizes[size_index],
                             "image": object_images[size_index],
                             "mass": object_weights[size_index],
-                            "x": pygame.mouse.get_pos()[0],
+                            "x": pygame.mouse.get_pos()[0] - object_sizes[size_index] // 2,  # Adjust position
                             "y": 0,
                             "velocity": 1
                         }
                         objects.append(new_object)
                         simulation_log.append(f"Dropped object: size {new_object['size']}, weight {new_object['mass']}")
                         last_click_time = current_time
+                        objects_count[new_object['size']] = objects_count.get(new_object['size'], 0) + 1
+                        total_objects_dropped += 1
 
     for obj in objects:
         obj["y"] += obj["velocity"]
@@ -120,8 +122,27 @@ while running:
     total_weight = sum(obj["mass"] for obj in objects)
     structure_width = max(200, total_weight)
 
+
+    draw_info_tab(objects_count, total_weight, total_objects_dropped) # I put this first so that it won't overlap with the structure
+    draw_structure(structure_width)
     draw_objects(objects)
+
+    pygame.time.Clock().tick(FPS)
+    pygame.display.flip()
+
+    for obj in objects:
+        obj["y"] += obj["velocity"]
+        obj["velocity"] += 1
+
+        if check_collision(obj, structure_width):
+            obj["y"] = structure_position[1] - obj["size"]
+            obj["velocity"] = 0
+
+    total_weight = sum(obj["mass"] for obj in objects)
+    structure_width = max(200, total_weight)
+    
     draw_info_tab(objects_count, total_weight, total_objects_dropped)
+    draw_objects(objects)
 
     draw_structure(structure_width)
     draw_objects(objects)
