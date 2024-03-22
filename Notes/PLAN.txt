@@ -1,3 +1,10 @@
+1st: Adding the structure (Bridge) and objects.
+2nd: Adding the functions for both the drop of the objects and the collision for the strucutre to stop the drop.(Almost done)
+3rd: Adding the function that makes the drop react (Idk if it should become wider per weight increase or become shorter per weight increase)
+4th: Adding Reset button, Save button, and spawn obejcts button.(requires work)
+5th: Make it work :D
+6th (Optional): If everthing works then we add a UI that shows the amount of dropped objects, overall weight dropped, and the quantity of each obejcts dropped.
+7th: Present it I guess?
 1st: Adding the structure (Bridge) and objects. /
 2nd: Adding the functions for both the drop of the objects and the collision for the strucutre to stop the drop. /
 3rd: Adding the function that makes the drop react (Idk if it should become wider per weight increase or become shorter per weight increase) / It became wider

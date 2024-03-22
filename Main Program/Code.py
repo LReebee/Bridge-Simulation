@@ -77,8 +77,11 @@ running = True
 objects = []
 structure_width = 200
 last_click_time = 0
+<<<<<<< HEAD
 objects_count = {} # In the funtion, this'll increase to the weight that u dropped
 total_objects_dropped = 0 # In the function, this'll increase to one per object
+=======
+>>>>>>> f76e5fc0df7099b20383a9cd432daf0e5a2ee529
 while running:
     screen.fill(BACKGROUND_COLOR)
 
@@ -92,7 +95,11 @@ while running:
                 objects_count = {}
                 total_objects_dropped = 0
 
+<<<<<<< HEAD
             elif event.key in [pygame.K_1, pygame.K_2, pygame.K_3]: # This is used for the buttons
+=======
+            elif event.key in [pygame.K_1, pygame.K_2, pygame.K_3]:
+>>>>>>> f76e5fc0df7099b20383a9cd432daf0e5a2ee529
                 size_index = int(event.key - pygame.K_1)
                 if 0 <= size_index < len(object_sizes):
                     current_time = pygame.time.get_ticks()
@@ -117,11 +124,14 @@ while running:
             obj["y"] = structure_position[1] - obj["size"]
             obj["velocity"] = 0
 
+<<<<<<< HEAD
     total_weight = sum(obj["mass"] for obj in objects)
     structure_width = max(200, total_weight)
 
     draw_objects(objects)
     draw_info_tab(objects_count, total_weight, total_objects_dropped)
+=======
+>>>>>>> f76e5fc0df7099b20383a9cd432daf0e5a2ee529
 
     draw_structure(structure_width)
     draw_objects(objects)
